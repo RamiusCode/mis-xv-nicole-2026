@@ -1,0 +1,89 @@
+<section class="py-8 px-4 relative">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-center mb-3" id="flores-arriba-ded">
+      <img
+        src="/imagenes/FlorSeparador.webp"
+        alt="Flores decorativas superiores"
+        class="w-48 sm:w-56 md:w-64 lg:w-72 h-auto object-contain"
+      />
+    </div>
+    <div class="text-center px-4">
+      <h2
+        class="font-charm text-xl sm:text-xl md:text-2xl text-[#D4748A] leading-relaxed"
+        id="texto-ded"
+      >
+        Los sueños florecen y hoy el mío empieza a brillar. Con la bendición de
+        Dios y el cariño de mi familia, quiero compartir contigo la alegría de
+        celebrar mis 15 años. Será una noche mágica que guardaré por siempre en
+        mi corazón.
+      </h2>
+    </div>
+    <div class="flex justify-center mt-3" id="flores-abajo-ded">
+      <img
+        src="/imagenes/FlorSeparador.webp"
+        alt="Fores decorativas inferiores"
+        class="w-48 sm:w-56 md:w-64 lg:w-72 h-auto object-contain scale-y-[-1]"
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    gsap.set("#flores-arriba-ded", { opacity: 0, y: -30 });
+    gsap.set("#texto-ded", { opacity: 0, y: 30 });
+    gsap.set("#flores-abajo-ded", { opacity: 0, y: 30 });
+
+    ScrollTrigger.create({
+      trigger: "#texto-ded",
+      start: "top 100%",
+      end: "top 20%",
+      onEnter: () => animarEntrada(),
+      onLeaveBack: () => animarSalida(),
+    });
+
+    function animarEntrada() {
+      const tl = gsap.timeline();
+      tl.to("#flores-arriba-ded", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      })
+        .to(
+          "#texto-ded",
+          { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+          "<",
+        )
+        .to(
+          "#flores-abajo-ded",
+          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+          "<",
+        );
+    }
+
+    function animarSalida() {
+      const tl = gsap.timeline();
+      tl.to("#flores-abajo-ded", {
+        opacity: 0,
+        y: 30,
+        duration: 0.4,
+        ease: "power2.in",
+      })
+        .to(
+          "#texto-ded",
+          { opacity: 0, y: 30, duration: 0.4, ease: "power2.in" },
+          "-=0.3",
+        )
+        .to(
+          "#flores-arriba-ded",
+          { opacity: 0, y: -30, duration: 0.4, ease: "power2.in" },
+          "-=0.3",
+        );
+    }
+  });
+</script>
